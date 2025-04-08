@@ -18,6 +18,8 @@
 #define SERVO_DDR    DDRB
 #define SERVO_PIN    PB1  // OCR1A est sur PB1 (Arduino Pin 9)
 
+//#define IR_THRESHOLD 100 // Distance threshold in mm to detect bar (valeur pour maintenant)
+
 // Fan control functions
 void init_fans(void) {
     // Configure PWM pins as outputs
@@ -74,7 +76,7 @@ int main() {
     timer0_init();        // Initialize Timer0 for PWM fans
     init_fans();          // Initialize fan ports
     init_ultrasonic();    
-    //ADC_init();           // Initialize ADC for IR sensor
+    //ir_sensor_init();           // Initialize IR sensor and ADC
     
    uint16_t dist1, dist2;
    sei();

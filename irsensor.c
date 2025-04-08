@@ -1,8 +1,11 @@
 #include "ir_sensor.h"
 #include <util/delay.h>
 #include <avr/io.h>
+#include "init_290.h"
 
 #define F_CPU 16000000UL
+#define IR_ADC_CHANNEL 3 // PC3 -> ADC3
+#define IR_SENSOR_PIN PC3 
 #define THRESHOLD_DISTANCE 100 // Distance threshold in mm to detect bar (valeur pour maintenant)
 
 /*
@@ -29,12 +32,10 @@ void UART_printNumber(uint16_t num) {
 }
 */
 
-
-// ADC initialization
-void ADC_init(void) {
-    ADMUX = (1 << REFS0) | (1 << MUX2) | (1 << MUX1);
-    ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1);
+void ir_sensor_init(void){
+    adc_init(IR_ADC_CHANNEL,0); // Initialize ADC for IR sensor
 }
+
 
 // ADC read function
 uint16_t ADC_read(void) {
