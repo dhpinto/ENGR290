@@ -4,7 +4,7 @@
 #include <avr/delay.h>
 #include "TWI_290.c"
 #include "ussensor.h"
-
+#include "ir_sensor.h"
 // Port definitions for fans
 #define LIFT_FAN_PORT    PORTD
 #define LIFT_FAN_DDR     DDRD
@@ -74,6 +74,7 @@ int main() {
     timer0_init();        // Initialize Timer0 for PWM fans
     init_fans();          // Initialize fan ports
     init_ultrasonic();    
+    //ADC_init();           // Initialize ADC for IR sensor
     
    uint16_t dist1, dist2;
    sei();
@@ -93,9 +94,13 @@ int main() {
         
         // Stop all fans (PUT IT IN A IF QUAND L'INFRAROUGE EST DETECTER)
        
+    //uint16_t ir_distance = sensorValue_to_mm(ADC_read());
+    //if (ir_distance < IR_THRESHOLD) {  
         set_servo_position(0);
         set_lift_fan(0);
         set_front_fan(0);
+        break;
+    //}
        
 
         _delay_ms(2000);     // Wait 2 seconds before next test
